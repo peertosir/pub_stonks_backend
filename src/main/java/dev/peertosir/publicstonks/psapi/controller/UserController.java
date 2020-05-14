@@ -1,6 +1,6 @@
 package dev.peertosir.publicstonks.psapi.controller;
 
-import dev.peertosir.publicstonks.psapi.model.request.UserDetailsRequestModel;
+import dev.peertosir.publicstonks.psapi.model.request.users.UserDetailsRequestModel;
 import dev.peertosir.publicstonks.psapi.model.response.UserRest;
 import dev.peertosir.publicstonks.psapi.shared.dto.UserDto;
 import org.springframework.beans.BeanUtils;

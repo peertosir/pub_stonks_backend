@@ -1,4 +1,4 @@
-package dev.peertosir.publicstonks.psapi.model.request;
+package dev.peertosir.publicstonks.psapi.model.request.users;
 
 public class UserDetailsRequestModel {
 
