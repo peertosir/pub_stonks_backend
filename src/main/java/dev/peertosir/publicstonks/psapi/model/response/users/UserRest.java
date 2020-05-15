@@ -1,4 +1,4 @@
-package dev.peertosir.publicstonks.psapi.model.response;
+package dev.peertosir.publicstonks.psapi.model.response.users;
 
 
 public class UserRest {

@@ -4,6 +4,7 @@ public class UserDetailsRequestModel {
 
     private String firstName;
     private String lastName;
+    private String description;
     private String email;
     private String password;
 
@@ -21,6 +22,14 @@ public class UserDetailsRequestModel {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getEmail() {
