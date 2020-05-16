@@ -1,6 +1,7 @@
 package dev.peertosir.publicstonks.psapi.shared.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class UserDto implements Serializable {
 
@@ -15,6 +16,9 @@ public class UserDto implements Serializable {
     private String encryptedPassword;
     private String emailVerificationToken;
     private Boolean emailVerificationStatus = false;
+    private Date createdAt;
+    private boolean banned = false;
+    private Date bannedAt;
 
     public long getId() {
         return id;
@@ -94,5 +98,29 @@ public class UserDto implements Serializable {
 
     public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
         this.emailVerificationStatus = emailVerificationStatus;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
+
+    public Date getBannedAt() {
+        return bannedAt;
+    }
+
+    public void setBannedAt(Date bannedAt) {
+        this.bannedAt = bannedAt;
     }
 }

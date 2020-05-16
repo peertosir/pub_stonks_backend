@@ -92,4 +92,14 @@ public class UserController {
         return operationStatusModel;
     }
 
+    @PutMapping("/{id}/ban")
+    public OperationStatusModel banUser(@PathVariable String id) {
+        OperationStatusModel operationStatusModel = new OperationStatusModel();
+        operationStatusModel.setOperationName("User with id: " +  id +  " banned");
+        userService.banUser(id);
+        operationStatusModel.setOperationResult("SUCCESS");
+        return operationStatusModel;
+    }
+
+
 }

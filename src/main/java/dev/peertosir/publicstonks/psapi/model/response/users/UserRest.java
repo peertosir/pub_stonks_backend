@@ -7,6 +7,7 @@ public class UserRest {
     private String lastName;
     private String description;
     private String email;
+    private boolean banned;
 
     public String getUserId() {
         return userId;
@@ -46,5 +47,13 @@ public class UserRest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
     }
 }
