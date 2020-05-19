@@ -14,6 +14,10 @@ public class HashIdGenerator {
         return generateRandomString(length);
     }
 
+    public String generateProjectId(int length) {
+        return generateRandomString(length);
+    }
+
     private String generateRandomString(int length) {
         StringBuilder returnValue = new StringBuilder(length);
 
