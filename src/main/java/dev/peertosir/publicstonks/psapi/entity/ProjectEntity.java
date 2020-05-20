@@ -125,4 +125,12 @@ public class ProjectEntity implements Serializable {
     public void setStatus(ProjectStatus status) {
         this.status = status;
     }
+
+    public enum ProjectStatus {
+        NEW, APPROVED, ON_HOLD, FINISHED;
+    }
+
+    public enum People {
+        DEVELOPER, DESIGNER, QA;
+    }
 }

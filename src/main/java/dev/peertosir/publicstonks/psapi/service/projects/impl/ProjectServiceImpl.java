@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import dev.peertosir.publicstonks.psapi.entity.ProjectEntity;
+import dev.peertosir.publicstonks.psapi.entity.ProjectEntity.ProjectStatus;
 //import dev.peertosir.publicstonks.psapi.entity.ProjectEntity.ProjectStatus;
 import dev.peertosir.publicstonks.psapi.repository.ProjectRepository;
 import dev.peertosir.publicstonks.psapi.service.projects.ProjectService;
@@ -41,7 +42,7 @@ public class ProjectServiceImpl implements ProjectService {
         
         String publicProjectId = hashIdGenerator.generateProjectId(20);
         projectEntity.setProjectId(publicProjectId);
-        //projectEntity.setStatus(ProjectStatus.NEW);
+        projectEntity.setStatus(ProjectStatus.NEW);
         ProjectEntity storedProjectDetails = projectRepository.save(projectEntity);
         
         ProjectDto returnValue = new ProjectDto();
