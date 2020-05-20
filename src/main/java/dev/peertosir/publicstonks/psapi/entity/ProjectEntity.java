@@ -40,6 +40,7 @@ public class ProjectEntity implements Serializable {
     private String docsUrl;
     
     @Enumerated(EnumType.STRING)
+    //@Column(columnDefinition = "ENUM('DEVELOPER', 'DESIGNER', 'QA')")    
     private People peopleNeeded;
     
     @Enumerated(EnumType.STRING)
@@ -123,13 +124,5 @@ public class ProjectEntity implements Serializable {
 
     public void setStatus(ProjectStatus status) {
         this.status = status;
-    }
-
-    public enum People {
-        DEVELOPER, DESIGNER, QA;
-    }
-
-    public enum ProjectStatus {
-        NEW, APPROVED, ON_HOLD, FINISHED;
     }
 }

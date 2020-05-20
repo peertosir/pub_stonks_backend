@@ -1,5 +1,8 @@
 package dev.peertosir.publicstonks.psapi.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.peertosir.publicstonks.psapi.exceptions.projects.ProjectAlreadyExistsException;
@@ -38,6 +42,25 @@ public class ProjectController {
         return returnValue;
     }
     
+    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public List<ProjectRest> getUsers(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "25") int limit
+            ) {
+        List<ProjectRest> returnValue = new ArrayList<>();
+
+        List<ProjectDto> projects = projectService.getProjects(page, limit);
+
+        for (ProjectDto project : projects) {
+            ProjectRest projectRest = new ProjectRest();
+            BeanUtils.copyProperties(project, projectRest);
+            returnValue.add(projectRest);
+        }
+
+        return returnValue;
+    }
+
+
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ProjectRest createProject(@RequestBody ProjectDetailsRequestModel projectDetails) {
 

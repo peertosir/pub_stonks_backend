@@ -6,7 +6,9 @@ import dev.peertosir.publicstonks.psapi.exceptions.general.PublicStonksException
 
 public class ProjectAlreadyExistsException extends PublicStonksException {
 
-    public ProjectAlreadyExistsException()  {
+    private static final long serialVersionUID = -830756450929866043L;
+
+    public ProjectAlreadyExistsException() {
         super("Project with such title already exists");
         this.statusCode = HttpStatus.CONFLICT;
     }
