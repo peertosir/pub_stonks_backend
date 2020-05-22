@@ -8,7 +8,7 @@ public class UserUnprocessableEntityException extends PublicStonksException {
     private static final long serialVersionUID = -567570952814079605L;
 
     public UserUnprocessableEntityException() {
-        super("Not all mandatory fields for User were filled");
+        super("Operation with user cannot be done due to restrictions");
         this.statusCode = HttpStatus.UNPROCESSABLE_ENTITY;
     }
 }

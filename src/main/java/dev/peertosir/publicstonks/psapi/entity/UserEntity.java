@@ -1,10 +1,8 @@
 package dev.peertosir.publicstonks.psapi.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity(name="users")
 public class UserEntity implements Serializable {
@@ -25,6 +23,16 @@ public class UserEntity implements Serializable {
 
     @Column(length = 1000)
     private String description;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createdAt;
+
+    @Column(nullable = false)
+    private boolean banned = false;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date bannedAt;
 
     @Column(nullable = false, length = 120, unique = true)
     private String email;
@@ -106,5 +114,29 @@ public class UserEntity implements Serializable {
 
     public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
         this.emailVerificationStatus = emailVerificationStatus;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
+
+    public Date getBannedAt() {
+        return bannedAt;
+    }
+
+    public void setBannedAt(Date bannedAt) {
+        this.bannedAt = bannedAt;
     }
 }

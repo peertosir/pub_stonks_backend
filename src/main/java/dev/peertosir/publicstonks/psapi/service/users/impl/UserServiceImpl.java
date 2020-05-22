@@ -1,8 +1,10 @@
 package dev.peertosir.publicstonks.psapi.service.users.impl;
 
 import dev.peertosir.publicstonks.psapi.entity.UserEntity;
+import dev.peertosir.publicstonks.psapi.exceptions.users.UserAlreadyExistsException;
+import dev.peertosir.publicstonks.psapi.exceptions.users.UserBannedException;
 import dev.peertosir.publicstonks.psapi.exceptions.users.UserNotFoundException;
-import dev.peertosir.publicstonks.psapi.model.response.users.UserRest;
+import dev.peertosir.publicstonks.psapi.exceptions.users.UserUnprocessableEntityException;
 import dev.peertosir.publicstonks.psapi.repository.UserRepository;
 import dev.peertosir.publicstonks.psapi.service.users.UserService;
 import dev.peertosir.publicstonks.psapi.shared.dto.UserDto;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,7 +43,7 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
         //Check if user with this email already exists
         if (userRepository.findByEmail(userDto.getEmail()) != null) {
-            throw new RuntimeException("Record already exists");
+            throw new UserAlreadyExistsException();
         }
 
         UserEntity userEntity = new UserEntity();
@@ -49,6 +52,7 @@ public class UserServiceImpl implements UserService {
         String publicUserId = hashIdGenerator.generateUserId(20);
         userEntity.setUserId(publicUserId);
         userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        userEntity.setCreatedAt(new Date());
         UserEntity savedUser = userRepository.save(userEntity);
 
         UserDto returnValue = new UserDto();
@@ -127,10 +131,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void banUser(String id) {
+        UserEntity userEntity = userRepository.findByUserId(id);
+        if (userEntity == null) throw new UserNotFoundException();
+        if (userEntity.isBanned()) {
+            throw new UserUnprocessableEntityException();
+        }
+        userEntity.setBanned(true);
+        userEntity.setBannedAt(new Date());
+        userRepository.save(userEntity);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByEmail(email);
 
         if (userEntity == null) throw new UserNotFoundException();
+        if (userEntity.isBanned()) throw new UserBannedException();
 
         return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
     }
